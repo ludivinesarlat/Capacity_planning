@@ -6,5 +6,5 @@ Une application ANGULAR a été développée pour permettre à l'utilisateur (ge
 
 Ce repo contient plusieurs répertoires :
   - le répertoire SERVER qui contient les fichiers relatifs au serveur NODE.JS qui permet de mettre à diposition les données et d'interroger le modèle de prédiction.
-  - le repertoire ANGULAR qui contient le code pour l'interface utilisateur
+  - le repertoire CP2 qui contient le code pour l'interface utilisateur développée en ANGULAR.
   - le répertoire DEVELOPPEMENT_ANALYSE qui contient différents fichiers utiles au projet (Scripts Python et Notebooks :récupération des données, analyses, modélisation...)
