@@ -1,0 +1,76 @@
+CREATE TABLE "stk_origines" (
+	"id_origine" INTEGER NOT NULL,
+	"origine" VARCHAR NULL DEFAULT NULL,
+	PRIMARY KEY ("id_origine")
+)
+;
+COMMENT ON COLUMN "stk_origines"."id_origine" IS '';
+COMMENT ON COLUMN "stk_origines"."origine" IS '';
+----------------------------------------------------------------------
+
+CREATE TABLE "stk_typologies" (
+	"id_typologie" INTEGER NOT NULL,
+	"name_typologie" VARCHAR NULL DEFAULT NULL,
+	PRIMARY KEY ("id_typologie")
+)
+;
+COMMENT ON COLUMN "stk_typologies"."id_typologie" IS '';
+COMMENT ON COLUMN "stk_typologies"."name_typologie" IS '';
+--------------------------------------------------------------------------
+CREATE TABLE "stk_fichiers" (
+	"nom_fichier" VARCHAR NOT NULL,
+	"id_origine" INTEGER NULL DEFAULT NULL,
+	PRIMARY KEY ("nom_fichier"),
+	CONSTRAINT "id_origine" FOREIGN KEY ("id_origine") REFERENCES "public"."stk_origines" ("id_origine") ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+;
+COMMENT ON COLUMN "stk_fichiers"."nom_fichier" IS '';
+COMMENT ON COLUMN "stk_fichiers"."id_origine" IS '';
+----------------------------------------------------------------------
+CREATE TABLE "stk_offres" (
+	"id_offre" INTEGER NOT NULL,
+	"name_offre" VARCHAR NULL DEFAULT NULL,
+	PRIMARY KEY ("id_offre")
+)
+;
+COMMENT ON COLUMN "stk_offres"."id_offre" IS '';
+COMMENT ON COLUMN "stk_offres"."name_offre" IS '';
+------------------------------------------------------------------
+CREATE TABLE "stk_pools" (
+	"id_pool" INTEGER NOT NULL,
+	"name_pool" VARCHAR NOT NULL,
+	"id_offre" INTEGER NOT NULL,
+	PRIMARY KEY ("id_pool"),
+	CONSTRAINT "id_offre" FOREIGN KEY ("id_offre") REFERENCES "public"."stk_offres" ("id_offre") ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+;
+COMMENT ON COLUMN "stk_pools"."id_pool" IS '';
+COMMENT ON COLUMN "stk_pools"."name_pool" IS '';
+COMMENT ON COLUMN "stk_pools"."id_offre" IS '';
+
+------------------------------------------------------------------
+CREATE TABLE "stk_enregistrements" (
+	"id_enreg" INTEGER NULL DEFAULT NULL,
+	"name_volume" VARCHAR NULL DEFAULT NULL,
+	"capacity" NUMERIC NULL DEFAULT NULL,
+	"used_capacity" NUMERIC NULL DEFAULT NULL,
+	"date" DATE NULL DEFAULT NULL,
+	"client" VARCHAR NULL DEFAULT NULL,
+	"id_pool" INTEGER NULL DEFAULT NULL,
+	"id_typologie" INTEGER NULL DEFAULT NULL,
+	"id_origine" INTEGER NULL DEFAULT NULL,
+	CONSTRAINT "id_origine" FOREIGN KEY ("id_origine") REFERENCES "public"."stk_origines" ("id_origine") ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT "id_pool" FOREIGN KEY ("id_pool") REFERENCES "public"."stk_pools" ("id_pool") ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT "id_typologie" FOREIGN KEY ("id_typologie") REFERENCES "public"."stk_typologies" ("id_typologie") ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+;
+COMMENT ON COLUMN "stk_enregistrements"."id_enreg" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."name_volume" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."capacity" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."used_capacity" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."date" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."client" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."id_pool" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."id_typologie" IS '';
+COMMENT ON COLUMN "stk_enregistrements"."id_origine" IS '';
+
